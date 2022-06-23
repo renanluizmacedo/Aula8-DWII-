@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Define uma seção "titulo" -->
-    <title>VetClin -  @yield('titulo') </title>
+    <title>VetClin  @yield('titulo') </title>
     
 
    
