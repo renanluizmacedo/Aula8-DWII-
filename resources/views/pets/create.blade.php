@@ -1,7 +1,7 @@
 <!-- Herda o layout padrão definido no template "main" -->
 @extends('templates.main', ['titulo' => "Novo Pet"])
 <!-- Preenche o conteúdo da seção "titulo" -->
-@section('titulo') Pets @endsection
+@section('titulo') - Pets @endsection
 <!-- Preenche o conteúdo da seção "conteudo" -->
 @section('conteudo')
 
