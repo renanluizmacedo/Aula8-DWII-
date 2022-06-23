@@ -21,3 +21,5 @@ Route::get('/', function () {
 Route::resource('clientes', 'ClienteController');
 
 Route::resource('veterinarios', 'VeterinarioController');
+
+Route::resource('pets', 'PetController');

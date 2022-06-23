@@ -6,17 +6,22 @@ use Illuminate\Support\ServiceProvider;
 // Importa o Blade
 use Illuminate\Support\Facades\Blade;
 
-class AppServiceProvider extends ServiceProvider {
+class AppServiceProvider extends ServiceProvider
+{
 
-    public function register() {
+    public function register()
+    {
         //
     }
 
-    public function boot() {
-        
+    public function boot()
+    {
+
         // Registra o componente com o alias "datalist"
         Blade::component('components.datalistVeterinarios', 'datalistVeterinarios');
 
-       Blade::component('components.datalistClientes', 'datalistClientes');
+        Blade::component('components.datalistPet', 'datalistPet');
+
+        Blade::component('components.datalistClientes', 'datalistClientes');
     }
 }
