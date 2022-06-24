@@ -8,7 +8,7 @@ class PetController extends Controller
 {
 
     public $pets = [[
-        "id" => 1,
+        "id" => 0,
         "nome" => "Rex",
         "raca" => "Rottweiler"
     ]];
@@ -55,6 +55,7 @@ class PetController extends Controller
         $aux = session('pets');
         $ids = array_column($aux, 'id');
 
+
         if (count($ids) > 0) {
             $new_id = max($ids) + 1;
         } else {
@@ -83,6 +84,7 @@ class PetController extends Controller
     {
         $aux = session('pets');
 
+
         $index = array_search($id, array_column($aux, 'id'));
 
         $dados = $aux[$index];
@@ -99,6 +101,9 @@ class PetController extends Controller
     public function edit($id)
     {
         $aux = session('pets');
+
+        
+        $aux = $this->backup($aux);
 
         $index = array_search($id, array_column($aux, 'id'));
 
@@ -126,6 +131,7 @@ class PetController extends Controller
             "raca" => $request->raca,
         ];
 
+
         $aux[$index] = $novo;
         session(['pets' => $aux]);
 
@@ -141,13 +147,28 @@ class PetController extends Controller
     public function destroy($id)
     {
         $aux = session('pets');
-        
-        $index = array_search($id, array_column($aux, 'id')); 
+
+        $index = array_search($id, array_column($aux, 'id'));
+
+
+        $aux = $this->backup($aux);
 
         unset($aux[$index]);
 
+
         session(['pets' => $aux]);
 
-        return redirect()->route('pets.index'); 
-       }
+        return redirect()->route('pets.index');
+    }
+
+    public function backup($dados)
+    {
+        $i = 0;
+        foreach ($dados as $dado) {
+            $new[$i] = $dado;
+            $i++;
+        }
+
+        return $new;
+    }
 }

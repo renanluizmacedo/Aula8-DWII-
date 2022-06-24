@@ -8,7 +8,7 @@ class VeterinarioController extends Controller
 {
 
     public $veterinarios = [[
-        "id" => 1,
+        "id" => 0,
         "crmv" => 123456789,
         "nome" => "Gil Eduardo",
         "especialidade" => "Cirugia"
@@ -21,6 +21,7 @@ class VeterinarioController extends Controller
     public function __construct()
     {
         $aux = session('veterinarios');
+
 
         if (!isset($aux)) {
             session(['veterinarios' => $this->veterinarios]);
@@ -85,12 +86,12 @@ class VeterinarioController extends Controller
     public function show($id)
     {
         $aux = session('veterinarios');
-        
+
         $index = array_search($id, array_column($aux, 'id'));
 
         $dados = $aux[$index];
 
-        return view('veterinarios.show', compact('dados'));//
+        return view('veterinarios.show', compact('dados')); //
     }
 
     /**
@@ -103,9 +104,12 @@ class VeterinarioController extends Controller
     {
         $aux = session('veterinarios');
 
+        $aux = $this->backup($aux);
+
         $index = array_search($id, array_column($aux, 'id'));
 
         $dados = $aux[$index];
+
 
         return view('veterinarios.edit', compact('dados'));
     }
@@ -145,14 +149,28 @@ class VeterinarioController extends Controller
      */
     public function destroy($id)
     {
+
         $aux = session('veterinarios');
 
         $index = array_search($id, array_column($aux, 'id'));
 
+        $aux = $this->backup($aux);
+
         unset($aux[$index]);
+
 
         session(['veterinarios' => $aux]);
 
         return redirect()->route('veterinarios.index');
+    }
+    public function backup($dados)
+    {
+        $i = 0;
+        foreach ($dados as $dado) {
+            $new[$i] = $dado;
+            $i++;
+        }
+
+        return $new;
     }
 }
