@@ -2,27 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Veterinario;
 use App\Models\Especialidade;
 use Illuminate\Http\Request;
 
-class VeterinarioController extends Controller
+class EspecialidadeController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-
     public function index()
     {
-        $dados = Veterinario::with(['especialidade'])->get();
+        $dados = Especialidade::all();
         $clinica = "VetClin DWII";
 
-        return view('veterinarios.index', compact(['dados', 'clinica']));
+        return view('especialidades.index', compact(['dados', 'clinica']));
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -30,9 +27,7 @@ class VeterinarioController extends Controller
      */
     public function create()
     {
-        $dados = Especialidade::all();
-
-        return view('veterinarios.create', compact(['dados']));
+        return view('especialidades.create');
     }
 
     /**
@@ -43,14 +38,12 @@ class VeterinarioController extends Controller
      */
     public function store(Request $request)
     {
-
-        Veterinario::create([
+        Especialidade::create([
             'nome' => mb_strtoupper($request->nome, 'UTF-8'),
-            'crmv' => $request->crmv,
-            'especialidade_id' => $request->especialidade,
+            'descricao' => mb_strtoupper($request->descricao, 'UTF-8')
         ]);
 
-        return redirect()->route('veterinarios.index');
+        return redirect()->route('especialidades.index');
     }
 
     /**
@@ -61,13 +54,13 @@ class VeterinarioController extends Controller
      */
     public function show($id)
     {
-        $dados = Veterinario::find($id);
+        $dados = Especialidade::find($id);
 
         if (!isset($dados)) {
             return "<h1>ID: $id não encontrado!</h1>";
         }
 
-        return view('veterinarios.show', compact('dados'));
+        return view('especialidade.show', compact('dados'));
     }
 
     /**
@@ -78,13 +71,14 @@ class VeterinarioController extends Controller
      */
     public function edit($id)
     {
-        $dados = Veterinario::find($id);
+
+        $dados = Especialidade::find($id);
 
         if (!isset($dados)) {
             return "<h1>ID: $id não encontrado!</h1>";
         }
 
-        return view('veterinarios.edit', compact('dados'));
+        return view('especialidades.edit', compact('dados'));
     }
 
     /**
@@ -96,7 +90,7 @@ class VeterinarioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $obj = Veterinario::find($id);
+        $obj = Especialidade::find($id);
 
         if (!isset($obj)) {
             return "<h1>ID: $id não encontrado!";
@@ -104,13 +98,12 @@ class VeterinarioController extends Controller
 
         $obj->fill([
             'nome' => mb_strtoupper($request->nome, 'UTF-8'),
-            'crmv' => $request->crmv,
-            'especialidade_id' => 1,
+            'descricao' => mb_strtoupper($request->descricao, 'UTF-8'),
         ]);
 
         $obj->save();
 
-        return redirect()->route('veterinarios.index');
+        return redirect()->route('especialidades.index');
     }
 
     /**
@@ -121,8 +114,7 @@ class VeterinarioController extends Controller
      */
     public function destroy($id)
     {
-
-        $obj = Veterinario::find($id);
+        $obj = Especialidade::find($id);
 
         if (!isset($obj)) {
             return "<h1>ID: $id não encontrado!";
@@ -131,6 +123,5 @@ class VeterinarioController extends Controller
         $obj->destroy($id);
 
 
-        return redirect()->route('veterinarios.index');
-    }
+        return redirect()->route('especialidades.index');    }
 }

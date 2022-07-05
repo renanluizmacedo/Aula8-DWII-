@@ -23,3 +23,5 @@ Route::resource('clientes', 'ClienteController');
 Route::resource('veterinarios', 'VeterinarioController');
 
 Route::resource('pets', 'PetController');
+
+Route::resource('especialidades', 'EspecialidadeController');

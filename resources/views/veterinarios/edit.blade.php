@@ -19,7 +19,7 @@
                 <label for="nome">Nome do Veterinario</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" name="especialidade" placeholder="Especialidade" value="{{$dados['especialidade']}}" />
+                <input type="text" class="form-control" name="especialidade" placeholder="Especialidade" value="{{$dados->especialidade->nome}}" />
                 <label for="especialidade">Especialidade do Veterinario</label>
             </div>
         </div>
