@@ -10,7 +10,12 @@
     <div class="row">
         <div class="col">
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" name="nome" placeholder="Nome" value="{{old('nome')}}" />
+                <input type="text" class="form-control {{ $errors->has('telefone') ? 'is-invalid' : '' }}" name="nome" placeholder="Nome" value="{{old('nome')}}" />
+                @if($errors->has('nome'))
+                        <div class='invalid-feedback'>
+                            {{ $errors->first('nome') }}
+                        </div>
+                @endif
                 <label for="nome">Nome do Cliente</label>
             </div>
         </div>
@@ -18,14 +23,24 @@
     <div class="row">
         <div class="col">
             <div class="form-floating mb-3">
-                <input type="e-mail" class="form-control" name="email" placeholder="E-mail" value="{{old('email')}}" />
+                <input type="e-mail" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" name="email" placeholder="E-mail" value="{{old('email')}}" />
+                    @if($errors->has('email'))
+                        <div class='invalid-feedback'>
+                            {{ $errors->first('email') }}
+                        </div>
+                    @endif
                 <label for="email">E-mail</label>
             </div>
         </div>
         <div class="row">
             <div class="col">
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" name="telefone" placeholder="Telefone" value="{{old('telefone')}}" />
+                    <input type="text" class="form-control {{ $errors->has('telefone') ? 'is-invalid' : '' }}" name="telefone" placeholder="Telefone" value="{{old('telefone')}}" />
+                    @if($errors->has('telefone'))
+                        <div class='invalid-feedback'>
+                            {{ $errors->first('telefone') }}
+                        </div>
+                    @endif
                     <label for="telefone">Telefone</label>
                 </div>
             </div>

@@ -13,7 +13,7 @@ class ClienteController extends Controller
     public function index()
     {
 
-        $dados = Cliente::all();
+        $dados = Cliente::with(['endereco'])->get();
         $clinica = "VetClin DWII";
 
         return view('clientes.index', compact(['dados', 'clinica']));
@@ -27,13 +27,26 @@ class ClienteController extends Controller
 
     public function store(Request $request)
     {
+        $regras = [
+            'nome' => 'required|max:100|min:10',
+            'email' => 'required|max:150|min:15|unique:clientes',
+            'telefone' => 'required|min:9',
+        ];
+
+        $msgs = [
+            "required" => "O preenchimento do campo [:attribute] é obrigatório!",
+            "max" => "O campo [:attribute] possui tamanho máximo de [:max] caracteres!",
+            "min" => "O campo [:attribute] possui tamanho mínimo de [:min] caracteres!",
+            "unique" => "Já existe um endereço cadastrado com esse [:attribute]!"
+        ];
+    
+        $request->validate($regras, $msgs);
 
         Cliente::create([
             'nome' => mb_strtoupper($request->nome, 'UTF-8'),
             'email' => $request->email,
             'telefone' => $request->telefone,
             'endereco_id' => 1,
-
         ]);
 
         return redirect()->route('clientes.index');

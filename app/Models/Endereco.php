@@ -12,4 +12,8 @@ class Endereco extends Model {
     use SoftDeletes;
 
     protected $fillable = ['rua', 'numero', 'cep'];
+
+    public function cliente() {
+        return $this->hasMany('\App\Models\Cliente');
+    }
 }
